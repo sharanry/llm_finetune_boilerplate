@@ -1,11 +1,4 @@
-MAX_SEQ_LENGTH = 256
-LORA_R = 256 # 512
-LORA_ALPHA = 512 # 1024
-LORA_DROPOUT = 0.05
-EPOCHS = 3
-LEARNING_RATE = 1e-4  
-MODEL_SAVE_FOLDER_NAME = ".saves/test_lora"
-
+from config import LORA_R, LORA_ALPHA, LORA_DROPOUT, EPOCHS, LEARNING_RATE, LORA_SAVE_FOLDER_NAME, TARGET_MODULES
 from dataset import dataset
 from model import model, tokenizer, generate_text
 
@@ -22,7 +15,7 @@ lora_config = LoraConfig(
                  lora_dropout = LORA_DROPOUT, # dropout probability of the LoRA layers
                  bias="none",
                  task_type="CAUSAL_LM",
-                 target_modules=["q_proj", "v_proj"],
+                 target_modules=TARGET_MODULES,
                 )
 print(model)
 
@@ -33,7 +26,7 @@ model.print_trainable_parameters()
 
 # define the training arguments first.
 training_args = TrainingArguments(
-                    output_dir=MODEL_SAVE_FOLDER_NAME,
+                    output_dir=LORA_SAVE_FOLDER_NAME,
                     overwrite_output_dir=True,
                 #     fp16=True, #converts to float precision 16 using bitsandbytes
                     per_device_train_batch_size=1,
@@ -60,10 +53,12 @@ trainer = Trainer(
 model.config.use_cache = False  # silence the warnings. Please re-enable for inference!
 trainer.train()
 # only saves the incremental 🤗 PEFT weights (adapter_model.bin) that were trained, meaning it is super efficient to store, transfer, and load.
-trainer.model.save_pretrained(MODEL_SAVE_FOLDER_NAME)
-# save the full model and the training arguments
-trainer.save_model(MODEL_SAVE_FOLDER_NAME)
-trainer.model.config.save_pretrained(MODEL_SAVE_FOLDER_NAME)
+trainer.model.save_pretrained(LORA_SAVE_FOLDER_NAME)
+
+
+# # save the full model and the training arguments
+# trainer.save_model(LORA_SAVE_FOLDER_NAME)
+# trainer.model.config.save_pretrained(LORA_SAVE_FOLDER_NAME)
 
 
 
