@@ -10,6 +10,9 @@ readme = "README.md"
 python = "^3.9"
 torch = "^2.3.0"
 huggingface = "^0.0.1"
+transformers = "^4.40.2"
+flash-attention = "^1.0.0"
+peft = "^0.10.0"
 
 
 [build-system]
