@@ -1,2 +1,4 @@
-# llm_finetune_boilerplate
+# LLM Finetune Boilerplate
+
 Opinionated boilerplate code to finetune LLMs
+
