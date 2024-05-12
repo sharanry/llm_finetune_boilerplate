@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm-finetune-boilerplate"
+version = "0.1.0"
+description = "Opinionated boilerplate code to finetune LLMs"
+authors = ["Sharan Yalburgi <sharanyalburgi@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+torch = "^2.3.0"
+huggingface = "^0.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
